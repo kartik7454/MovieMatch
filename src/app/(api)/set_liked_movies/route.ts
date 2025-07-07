@@ -13,6 +13,18 @@ export async function POST(req: NextRequest) {
     //get list of movies user choose
     const body = await req.json();
     let { liked_movies } = body;
+
+    // Fetch the current user to get their liked_movies
+    const currentUser = await User.findById(session?.user.id).select("liked_movies");
+   
+    const existingIds = new Set((currentUser?.liked_movies || []).map((m: any) => String(m.id)));
+    
+    // Filter out movies that already exist by id
+    liked_movies = liked_movies.filter((movie: any) => !existingIds.has(String(movie.id)));
+    if (liked_movies.length === 0) {
+      return NextResponse.json({ success:true, message: "already liked." });
+    }
+
 // Add keywords to movies in parallel
 // liked_movies.map(...) creates/returns a new array.****
 // For each item (movie), it returns an async function (which is a promise).
@@ -38,7 +50,7 @@ await Promise.all(
 
     const user = await User.findByIdAndUpdate(
       session?.user.id,
-      { liked_movies: liked_movies },
+      { $addToSet: { liked_movies: { $each: liked_movies } } },
       { new: true }
     );
 
@@ -54,7 +66,7 @@ await Promise.all(
 
 
     
-    return NextResponse.json({ success:true});
+    return NextResponse.json({ success:true,message:"Added"});
   } catch (error) {
     console.log(error);
     let errorMessage = "An unknown error occurred";

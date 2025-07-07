@@ -2,7 +2,7 @@
 import '../../globals.css';
 import movies from '../../movies';//save this in db
 import React, { useState } from "react";
-
+import { useRouter } from 'next/navigation';
 // Define the type for selected movie
 interface SelectedMovie {
   title: string;
@@ -13,6 +13,7 @@ interface SelectedMovie {
 }
 
 export default function GetStarted() {
+  const router = useRouter();
   //state for selected movies
   const [selected, setSelected] = useState<SelectedMovie[]>([]);
   
@@ -24,6 +25,10 @@ export default function GetStarted() {
         //removes if already in the list
         return prev.filter((movie) => movie.id !== String(id));
       } else {
+        // Check if we've reached the maximum limit of 5
+        if (prev.length >= 5) {
+          return prev; // Don't add more movies if limit reached
+        }
         // else Find the movie in the list an adds it to the list
         const movie = movies.results.find((item) => item.id === id);
         if (!movie) return prev;
@@ -43,52 +48,22 @@ export default function GetStarted() {
 
   return (
     <main className="">
-      <h1 className='text-4xl'> have fixed list for this</h1>
+     
 <div className="w-4/5 mx-auto mt-7">
   <section className="bg-[#181a1b] py-4">
         <h1 className="text-white text-4xl font-black text-left ">
-          Select Movies You've Enjoyed
+          Select 5 Movies You've Enjoyed
         </h1>
       </section>
 
       {/* Search Bar */}
       <div className="mt-6">
         
-        <div className="relative">
-          {/* Magnifying glass SVG */}
-          <span className="absolute inset-y-0 left-0 flex items-center pl-4">
-            <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="2" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-            </svg>
-          </span>
-          {/*input */}
-          <input
-            type="text"
-            placeholder="Search for movies"
-            className="w-full pl-12 pr-4 py-3 rounded-lg bg-[#23272b] text-gray-200 placeholder-gray-400 focus:outline-none"
-          />
-        </div>
+        
       </div>
 
       {/* Genre Filter Buttons */}
-      <div className="flex gap-x-2 mt-4">
-        {[
-          "All Genres",
-          "Action",
-          "Comedy",
-          "Drama",
-          "Sci-Fi"
-        ].map((genre) => (
-          <button
-            key={genre}
-            className="flex items-center bg-[#23272b] text-gray-200 font-medium px-2.5 py-1.5 text-sm rounded-md shadow hover:bg-[#2c3136] transition-colors duration-150"
-          >
-            {genre}
-           
-          </button>
-        ))}
-      </div>
+    
 {/*movies list */}
       <section className="flex flex-row flex-wrap gap-4 mt-5 mb-16" >
 {movies.results.map((item)=>{return(
@@ -126,7 +101,7 @@ export default function GetStarted() {
         style={{ minWidth: '200px' }}
         onClick={async () => {
           try {
-            const response = await fetch('/liked_movies', {
+            const response = await fetch('/set_liked_movies', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -135,7 +110,7 @@ export default function GetStarted() {
             });
             const data = await response.json();
             if (data.success === true) {
-              console.log('Success');
+              router.push('/home');
             }
             // Optionally, handle success (e.g., navigate or show a message)
           } catch (error) {
@@ -144,7 +119,7 @@ export default function GetStarted() {
           }
         }}
       >
-        Done
+        Done{ ' ' +selected.length + "/5"}
       </button>
     </main>
   );
