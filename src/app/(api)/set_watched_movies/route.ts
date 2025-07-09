@@ -1,7 +1,7 @@
 "use server"
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import { User } from "@/models/User";
 import { connectToDB } from "@/lib/mongoDB";
 
