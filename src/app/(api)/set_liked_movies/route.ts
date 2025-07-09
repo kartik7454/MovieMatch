@@ -55,7 +55,7 @@ await Promise.all(
     );
 
 
-    fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/set_watched_movies`, {
+   await  fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/set_watched_movies`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -64,7 +64,7 @@ await Promise.all(
     });
     //call api for profile maker with data of liked movies 
     // Call the userProfile POST API to update user preferences based on liked movies
-    fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/userProfile`, {
+    await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/userProfile`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
