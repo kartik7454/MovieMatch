@@ -219,10 +219,75 @@ export default function MovieDetailPage({ params }: MovieDetailPageProps) {
                       }
                     }}
                  >
-                    like ❤️
+                    Like ❤️
                   </button>
                   </div>
-                 
+
+                  <div>
+                  <button
+                    className="w-full mt-4 py-3 px-6 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-semibold rounded-lg shadow-md hover:from-indigo-600 hover:to-pink-600 transition-all duration-200 text-lg"
+                    onClick={async () => {
+                      try {
+                        const response = await fetch('/set_watched_movies', {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
+                          },
+                          body: JSON.stringify({ watched_movies: [{
+                            title:movie.title,
+                            id:movie.id,
+                            poster:movie.poster_path
+                      
+                          }]}),
+                        });
+                        const data = await response.json();
+                        if (data.success === true) {
+                          alert(data.message)
+                          // router.push('/home');
+                        }
+                        // Optionally, handle success (e.g., navigate or show a message)
+                      } catch (error) {
+                        // Optionally, handle error
+                        console.error('Failed to like movies:', error);
+                      }
+                    }}
+                 >
+                  Watched ✔️
+                  </button>
+                  </div>
+
+                  <div>
+                  <button
+                    className="w-full mt-4 py-3 px-6 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-semibold rounded-lg shadow-md hover:from-indigo-600 hover:to-pink-600 transition-all duration-200 text-lg"
+                    onClick={async () => {
+                      try {
+                        const response = await fetch('/set_watchlist_movies', {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
+                          },
+                          body: JSON.stringify({ watchlist_movies: [{
+                            title:movie.title,
+                            id:movie.id,
+                            poster:movie.poster_path
+                      
+                          }]}),
+                        });
+                        const data = await response.json();
+                        if (data.success === true) {
+                          alert(data.message)
+                          // router.push('/home');
+                        }
+                        // Optionally, handle success (e.g., navigate or show a message)
+                      } catch (error) {
+                        // Optionally, handle error
+                        console.error('Failed to like movies:', error);
+                      }
+                    }}
+                 >
+                  Watch List ➕ 
+                  </button>
+                  </div>
                 </div>
             </div>
             </div>

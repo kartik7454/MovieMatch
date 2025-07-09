@@ -54,6 +54,14 @@ await Promise.all(
       { new: true }
     );
 
+
+    fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/set_watched_movies`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: session?.user.id, watched_movies:liked_movies ,id:session?.user.id})
+    });
     //call api for profile maker with data of liked movies 
     // Call the userProfile POST API to update user preferences based on liked movies
     fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/userProfile`, {
@@ -68,7 +76,7 @@ await Promise.all(
     
     return NextResponse.json({ success:true,message:"Added"});
   } catch (error) {
-    console.log(error);
+    
     let errorMessage = "An unknown error occurred";
     if (error instanceof Error) {
       errorMessage = error.message;

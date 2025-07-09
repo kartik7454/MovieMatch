@@ -31,8 +31,12 @@ export default  function Navbar() {
             <li className="hover:text-white cursor-pointer">
               <Link href="/liked" className="hover:text-white cursor-pointer">Liked</Link>
               </li>
-            <li className="hover:text-white cursor-pointer">Watched </li>
-            <li className="hover:text-white cursor-pointer">Watch List </li>
+              <li className="hover:text-white cursor-pointer">
+              <Link href="/watched" className="hover:text-white cursor-pointer">Watched</Link>
+              </li>
+              <li className="hover:text-white cursor-pointer">
+              <Link href="/watchlist" className="hover:text-white cursor-pointer">Watch List</Link>
+              </li>
           </ul>
         </div>
         {/* Right side: Search bar and avatar */}

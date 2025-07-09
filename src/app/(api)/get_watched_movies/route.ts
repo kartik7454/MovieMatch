@@ -13,12 +13,12 @@ export async function GET(req: Request) {
     //   return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
     // }
 
-    const user = await User.findById(session?.user.id).select("liked_movies");
+    const user = await User.findById(session?.user.id).select("watched_movies");
     if (!user) {
       return NextResponse.json({ success: false, error: "User not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ success: true, liked_movies: user.liked_movies || [] });
+    return NextResponse.json({ success: true, watched_movies: user.watched_movies || [] });
   } catch (error) {
     let errorMessage = "An unknown error occurred";
     if (error instanceof Error) {

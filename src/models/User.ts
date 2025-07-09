@@ -32,6 +32,24 @@ const UserSchema = new mongoose.Schema({
     ],
     default: [],
   },
+  watched_movies: {
+    type: [
+      {title: { type: String, required: true },
+        id: { type: String, required: true },
+        poster: { type: String, required: true },
+      }
+    ],
+    default: [],
+  },
+  watchlist_movies: {
+    type: [
+      {title: { type: String, required: true },
+        id: { type: String, required: true },
+        poster: { type: String, required: true },
+      }
+    ],
+    default: [],
+  },
   prefrence: {
     type: {
       topgenre: { type: [{ genreId: { type: Number } }], default: [] },

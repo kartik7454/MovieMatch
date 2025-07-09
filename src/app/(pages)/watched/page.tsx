@@ -13,10 +13,10 @@ export default function LikedPage() {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch("/get_liked_movies");
+        const res = await fetch("/get_watched_movies");
         const data = await res.json();
         if (data.success) {
-          setLikedMovies(data.liked_movies || []);
+          setLikedMovies(data.watched_movies || []);
         } else {
           setError(data.error || "Failed to fetch liked movies");
         }
@@ -36,12 +36,11 @@ export default function LikedPage() {
        {loading ? (
               <div className="text-center py-8">Loading movies...</div>
             ) : (
-              likedMovies.map((item:any) =><div> 
-                
-                <MovieBanner title={item.title}
+              likedMovies.map((item:any) =>
+              <div><MovieBanner title={item.title}
               poster_path = {item.poster}
               id={item.id}
-              />
+              /> 
                <button
                     className="w-full mt-3  px-4 py-2 bg-gradient-to-r from-red-500 via-pink-500 to-yellow-500 text-white font-semibold rounded-lg shadow-md hover:from-red-600 hover:to-yellow-600 transition-all duration-200 text-base flex items-center justify-center gap-2"
                     onClick={() => { console.log(item.id);
@@ -49,7 +48,7 @@ export default function LikedPage() {
                      setLikedMovies((prev) => prev.filter((movie: any) => movie.id !== item.id));
                      // INSERT_YOUR_CODE
                      // Make an API call to update liked movies on the server after removing from state
-                     fetch('/delete_liked', {
+                     fetch('/delete_watched', {
                        method: 'POST',
                        headers: {
                          'Content-Type': 'application/json',
