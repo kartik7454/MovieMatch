@@ -2,6 +2,7 @@
 
 import React from "react";
 import MovieBanner from "@/components/movieBanner";
+import { Snackbar, Alert } from "@mui/material";
 interface MovieDetailPageProps {
   params: {
     id: string;
@@ -14,6 +15,15 @@ export default function MovieDetailPage({ params }: MovieDetailPageProps) {
   const [movie, setMovie] = React.useState<any>(null);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
+  const [snackbar, setSnackbar] = React.useState<{
+    open: boolean;
+    message: string;
+    severity: 'success' | 'error' | 'info' | 'warning';
+  }>({
+    open: false,
+    message: '',
+    severity: 'success'
+  });
 
   React.useEffect(() => {
     // Try to get movie from localStorage first
@@ -209,13 +219,22 @@ export default function MovieDetailPage({ params }: MovieDetailPageProps) {
                         });
                         const data = await response.json();
                         if (data.success === true) {
-                          alert(data.message)
+                          setSnackbar({
+                            open: true,
+                            message: data.message,
+                            severity: 'success'
+                          });
                           // router.push('/home');
                         }
                         // Optionally, handle success (e.g., navigate or show a message)
                       } catch (error) {
                         // Optionally, handle error
                         console.error('Failed to like movies:', error);
+                        setSnackbar({
+                          open: true,
+                          message: 'Failed to like movie',
+                          severity: 'error'
+                        });
                       }
                     }}
                  >
@@ -242,13 +261,22 @@ export default function MovieDetailPage({ params }: MovieDetailPageProps) {
                         });
                         const data = await response.json();
                         if (data.success === true) {
-                          alert(data.message)
+                          setSnackbar({
+                            open: true,
+                            message: data.message,
+                            severity: 'success'
+                          });
                           // router.push('/home');
                         }
                         // Optionally, handle success (e.g., navigate or show a message)
                       } catch (error) {
                         // Optionally, handle error
-                        console.error('Failed to like movies:', error);
+                        console.error('Failed to mark as watched:', error);
+                        setSnackbar({
+                          open: true,
+                          message: 'Failed to mark as watched',
+                          severity: 'error'
+                        });
                       }
                     }}
                  >
@@ -275,13 +303,22 @@ export default function MovieDetailPage({ params }: MovieDetailPageProps) {
                         });
                         const data = await response.json();
                         if (data.success === true) {
-                          alert(data.message)
+                          setSnackbar({
+                            open: true,
+                            message: data.message,
+                            severity: 'success'
+                          });
                           // router.push('/home');
                         }
                         // Optionally, handle success (e.g., navigate or show a message)
                       } catch (error) {
                         // Optionally, handle error
-                        console.error('Failed to like movies:', error);
+                        console.error('Failed to add to watchlist:', error);
+                        setSnackbar({
+                          open: true,
+                          message: 'Failed to add to watchlist',
+                          severity: 'error'
+                        });
                       }
                     }}
                  >
@@ -296,6 +333,21 @@ export default function MovieDetailPage({ params }: MovieDetailPageProps) {
           <h1>No movie data found.</h1>
         )}
       </div>
+      
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={() => setSnackbar(prev => ({ ...prev, open: false }))}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert 
+          onClose={() => setSnackbar(prev => ({ ...prev, open: false }))} 
+          severity={snackbar.severity}
+          sx={{ width: '100%' }}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

@@ -69,11 +69,8 @@ await Promise.all(
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ userId: session?.user.id, liked_movies })
+      body: JSON.stringify({ userId: session?.user.id, liked_movies: user.liked_movies })
     });
-
-
-    
     return NextResponse.json({ success:true,message:"Added"});
   } catch (error) {
     

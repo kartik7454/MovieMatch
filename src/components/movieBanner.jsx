@@ -6,7 +6,7 @@ export default function MovieBanner(props) {
   return (
     <div
     // key={item.id}
-    className="relative bg-[#23272b] rounded-xl shadow-lg p-3 w-48 mx-auto cursor-pointer"
+    className="relative bg-[#23272b] rounded-xl shadow-lg p-3 w-48 h-80 mx-auto cursor-pointer"
     onClick={() => router.push(`/movies/${props.id}`)  }/*toggles button */
   >
  

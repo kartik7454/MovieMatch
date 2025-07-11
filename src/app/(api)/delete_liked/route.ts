@@ -30,7 +30,14 @@ export async function POST(req: Request) {
       (movie: any) => movie.id !== movieIdToDelete
     );
     await user.save();
-
+    fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/userProfile`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: session?.user.id, liked_movies: user.liked_movies })
+    });
+    
     return NextResponse.json({ success: true });
   } catch (error) {
     let errorMessage = "An unknown error occurred";

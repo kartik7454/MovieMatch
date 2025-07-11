@@ -79,10 +79,14 @@ console.log(cosine)
 data.results[index].cosinescore = cosine
 })
 const filtered_movies = data.results.filter((item:any)=>{return item.cosinescore >0.4}) 
+    // Filter out movies that are already watched by the user
+    // Assume user.watched_movies is an array of movie objects with an 'id' property
+    const watchedIds = new Set((user.watched_movies || []).map((m: any) => String(m.id)));
+    const unwatched_movies = filtered_movies.filter((movie: any) => !watchedIds.has(String(movie.id)));
 
 
 
-    return NextResponse.json({ results: filtered_movies });
+    return NextResponse.json({ results: unwatched_movies });
   } catch (error) {
     console.log(error)
     let errorMessage = "An unknown error occurred";
