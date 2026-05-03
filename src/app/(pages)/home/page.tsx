@@ -8,7 +8,7 @@ import HeroContainer from "@/components/heroContainer";
 export default function Home() {
   return (
 
-    <div>
+    <div >
         <div>
             <HeroContainer />
         </div>

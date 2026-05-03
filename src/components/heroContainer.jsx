@@ -2,8 +2,8 @@ import React from "react";
 import { FaSearch } from "react-icons/fa";
 export default function HeroContainer() {
   return (
-    <div className="min-h-screen flex pt-14 justify-center bg-[#231616]">
-      <div className="bg-[#22303C] rounded-xl p-14 flex flex-col items-center w-[1100px] relative h-[450px]">
+    <div className="min-h-screen flex  pt-14 justify-center bg-[#231616]">
+      <div className="bg-[#22303C]  rounded-xl p-14 flex flex-col items-center w-[1100px] relative h-[450px]">
         <img
           src="/images/hero.webp"
           alt="Logo"

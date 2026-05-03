@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { User } from "@/models/User";
+import User  from "@/models/User";
 import { connectToDB } from "@/lib/mongoDB";
 
 export async function POST(req: NextRequest) {

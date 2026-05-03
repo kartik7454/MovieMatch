@@ -1,7 +1,7 @@
 
 "use server";
 
-import { User } from "@/models/User";
+import User  from "@/models/User";
 import { connectToDB } from "@/lib/mongoDB";
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
