@@ -64,3 +64,42 @@ Organize your movie experience with:
 ---
 
 ## 📁 Project Structure
+MovieMatch/
+│
+├── frontend/ # UI and client-side logic
+├── api/ # Backend routes and endpoints
+├── components/ # Reusable UI components
+├── models/ # Database schemas and structure
+└── utils/ # Helper functions 
+
+
+---
+
+## 🧰 Tech Stack
+
+- **Frontend:** React / Next.js
+- **Backend:** API Routes / Node.js
+- **Database:** MongoDB (or your DB)
+- **Authentication:** NextAuth (or your auth system)
+- **API Source:** TMDB API
+
+---
+
+## 📌 Future Improvements
+
+- ⭐ Recommendation system (based on liked movies)
+- 🎯 AI-based suggestions
+- 📱 Mobile responsiveness improvements
+- 🧑‍🤝‍🧑 Social features (share lists, reviews)
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to fork the repo and submit a pull request.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
