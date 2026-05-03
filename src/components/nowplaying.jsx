@@ -12,13 +12,13 @@ export default function NowPlaying() {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch(`https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1&region=IN`, {
+        const res = await fetch(`/now_playing`, {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_BEARER_TOKEN}`,
             accept: 'application/json',
           },
         });
+   
         const data = await res.json();
         if (data) {
           setNowPlayingMovies(data.results || []);

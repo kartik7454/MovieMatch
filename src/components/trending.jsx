@@ -12,7 +12,8 @@ export default function Trending() {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch(`https://api.themoviedb.org/3/trending/movie/week`, {
+        const res = await fetch(`/trending`, {
+   
           method: 'GET',
           headers: {
             Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_BEARER_TOKEN}`,
