@@ -39,15 +39,15 @@ export default function MovieDetailPage({ params }: MovieDetailPageProps) {
       setError(null);
       try {
         const res = await fetch(
-          `https://api.themoviedb.org/3/movie/${id}?append_to_response=recommendations%2Cwatch%2Fproviders%2Cvideos`,
+          `/ind_movie/${id}`,
           {
             method: "GET",
             headers: {
-              Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_BEARER_TOKEN}`,
               accept: "application/json",
             },
           }
         );
+   
         const data = await res.json();
         if (!res.ok || data.success === false) {
           throw new Error(data.error || "Failed to fetch movie details");
